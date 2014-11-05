@@ -1,4 +1,4 @@
-blaTeve PHP Blade Laravel Tags Template Engine
+blaTeve - PHP Tags based Template Engine
 =======
 
 This is next template engine based on pyeve an brave projects for PHP Laravel Blade Template Engine.
