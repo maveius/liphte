@@ -14,6 +14,6 @@ About name:
 * e - engine
 * eve - based on idea of pyeve an brave
 
-PHP Blade Laravel Tags Template Engine based on idea of pyeve an brave
+PHP Blade Laravel Tags Template Engine based on idea of https://github.com/rudykocur/pyeve an brave
 
 to be continiued...
