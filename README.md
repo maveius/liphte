@@ -12,7 +12,7 @@ About name:
 * la - for Laraver framework
 * T - Tags Template
 * e - engine
-* eve - based on idea of pyeve an brave
+* eve - based on idea of pyeve an breve
 
 PHP Blade Laravel Tags Template Engine based on idea of https://github.com/rudykocur/pyeve an brave
 
