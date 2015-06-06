@@ -4,5 +4,10 @@
   "require": {
     "windwalker/dom": "~2.0",
     "windwalker/html": "~2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "."
+    ]
   }
 }
