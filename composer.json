@@ -1,0 +1,8 @@
+{
+  "name": "maveius/liphte",
+  "version": "0.1",
+  "require": {
+    "windwalker/dom": "~2.0",
+    "windwalker/html": "~2.0"
+  }
+}
