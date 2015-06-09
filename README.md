@@ -67,7 +67,7 @@ use liphte\tags\html\Tag;
 
 ## Main Developers
 
-- [maveius](https://maveius.pl)
+- [maveius](http://maveius.pl)
 
 
 ## Licence
