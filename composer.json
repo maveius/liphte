@@ -1,0 +1,14 @@
+{
+  "name": "maveius/liphte",
+  "version": "1.0",
+  "require": {
+    "windwalker/dom": "~2.0",
+    "windwalker/html": "~2.0",
+    "phpunit/phpunit": "dev-master"
+  },
+  "autoload": {
+    "classmap": [
+      "."
+    ]
+  }
+}
