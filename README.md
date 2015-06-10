@@ -41,7 +41,7 @@ use liphte\tags\html\Tag;
 ```php
 {
     "require": {
-        "maveius.pl/liphte": "dev-master"
+        "maveius/liphte": "dev-master"
     }
 }
 ```
