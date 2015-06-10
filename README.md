@@ -59,7 +59,7 @@ use liphte\tags\html\Tag;
 
 ## Changelog
 
-- v1.0 #1: 10 June 2015:
+- v1.0 : 10 June 2015:
 	- Refactoring code and direcotries structure
 
 - v0.1 : 6 June 2015:
