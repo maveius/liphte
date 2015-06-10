@@ -60,7 +60,7 @@ use liphte\tags\html\Tag;
 ## Changelog
 
 - v1.0 #1: 28 Fabruary 2015:
-	- Refactoring code and direcotries
+	- Refactoring code and direcotries structure
 
 - v0.1 : 7 February 2015:
 	- Init repository & implement first concept.
