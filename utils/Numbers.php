@@ -3,7 +3,8 @@
 
 namespace liphte\utils;
 
-class Numbers {
+class Numbers
+{
 
     const FIRST = 0;
     const SECOND = 1;
