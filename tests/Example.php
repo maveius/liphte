@@ -23,8 +23,8 @@ class Example {
         //        )
         //    ]
         //);
-        //$this->template();
-        $this->index();
+        $this->template();
+        //$this->index();
     }
 
     public function template()
@@ -52,18 +52,19 @@ class Example {
         echo "\n";
         echo "\n";
 
-        echo $t->html( ['ng-app'=>'nameApp'],
-            [
-                $t->head(
-                    [
-                        $t->meta( ['charset'=>'utf-8'] ),
-                        $t->title( 'Angular.js Example' ),
-                        $t->script(
-                            ['src'=>'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js']
-                        ),
-                        $t->script(
-                            [
-                                ' var nameApp = angular.module(\'nameApp\', []);
+        echo $t->doctype() .
+            $t->html(['ng-app' => 'nameApp'],
+                [
+                    $t->head(
+                        [
+                            $t->meta(['charset' => 'utf-8']),
+                            $t->title('Angular.js Example'),
+                            $t->script(
+                                ['src' => 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js']
+                            ),
+                            $t->script(
+                                [
+                                    ' var nameApp = angular.module(\'nameApp\', []);
                                 nameApp.controller(\'NameCtrl\', function( $scope ) {
                                     $scope.names = [\'Lary\', \'Curly\', \'Moe\'];
                                     $scope.addName = function () {
@@ -80,37 +81,37 @@ class Example {
                                     //    $scope.$apply();
                                     //}, 1000);
                                 });'
-                            ]
-                        )
-                    ]
-                ),
-                $t->body(['ng-controller'=>'NameCtrl'],
-                    [
-                        $t->ul(
-                            [
-                                $t->li(['ng-repeat'=>'name in names track by $index'],
-                                    [
-                                        '{{name}}'
-                                    ]
-                                )
-                            ]
-                        ),
-                        $t->form(['ng-submit'=>'addName()'],
-                            [
-                                $t->input( ['type'=>'text', 'ng-model'=>'enteredName'] ),
-                                $t->input( ['type'=>'submit', 'value'=>'add'] )
-                            ]
-                        )
-                        //'Frist name:' . $t->input( ['ng-model'=>'firstName', 'type'=>'text'] ),
-                        //$t->br(),
-                        //'Last name:' . $t->input( ['ng-model'=>'lastName', 'type'=>'text'] ),
-                        //$t->br(),
-                        //'Hello {{firstName}} {{lastName}}'
+                                ]
+                            )
+                        ]
+                    ),
+                    $t->body(['ng-controller' => 'NameCtrl'],
+                        [
+                            $t->ul(
+                                [
+                                    $t->li(['ng-repeat' => 'name in names track by $index'],
+                                        [
+                                            '{{name}}'
+                                        ]
+                                    )
+                                ]
+                            ),
+                            $t->form(['ng-submit' => 'addName()'],
+                                [
+                                    $t->input(['type' => 'text', 'ng-model' => 'enteredName']),
+                                    $t->input(['type' => 'submit', 'value' => 'add'])
+                                ]
+                            )
+                            //'Frist name:' . $t->input( ['ng-model'=>'firstName', 'type'=>'text'] ),
+                            //$t->br(),
+                            //'Last name:' . $t->input( ['ng-model'=>'lastName', 'type'=>'text'] ),
+                            //$t->br(),
+                            //'Hello {{firstName}} {{lastName}}'
 
-                    ]
-                )
-            ]
-        );
+                        ]
+                    )
+                ]
+            );
         echo "\n";
     }
 

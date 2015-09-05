@@ -19,6 +19,7 @@
     "windwalker/html": "~2.0",
     "phpunit/phpunit": "dev-master",
     "phpunit/phpunit-mock-objects": "dev-master",
+    "phpunit/php-code-coverage": "dev-master",
     "sebastian/resource-operations": "dev-master"
   },
   "repositories": [

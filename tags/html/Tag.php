@@ -123,8 +123,9 @@ use Windwalker\Dom\HtmlElement;
 class Tag
 {
 
+    private $doctype = "<!DOCTYPE html>";
     private $xmlns = "http://www.w3.org/1999/xhtml";
-    private $doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN ' .
+    private $doctypeXhtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN ' .
     'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n';
 
     private $name;
@@ -204,9 +205,13 @@ class Tag
     /**
      * @return string
      */
-    public function getDoctype()
+    public function getDoctypeXhtml()
     {
 
+        return $this->doctypeXhtml;
+    }
+
+    public function doctype() {
         return $this->doctype;
     }
 }
