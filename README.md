@@ -9,6 +9,7 @@ It's lightweight and minimalistic wrapper of html or dom builder based on [windw
 ```php
 /** Import **/
 use liphte\tags\html\Tag;
+use liphte\tags\html\Attribute as a;
 
 /** In your code (for example controller) **/
   $t = new Tag();
@@ -17,10 +18,10 @@ use liphte\tags\html\Tag;
       [
           $t->tr(
               [
-                  $t->td([ 'style' => 'border: 1px solid #000;' ],
+                  $t->td( a::style( 'border: 1px solid #000;' ),
                       'Column 1'
                   ),
-                  $t->td([ 'style' => 'border: 1px solid #000;' ],
+                  $t->td( a::style( 'border: 1px solid #000;' ),
                       'Column 2'
                   )
               ]
