@@ -1,5 +1,6 @@
 <?php
 namespace liphte\tests;
+use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
 
 class Example {
@@ -9,20 +10,20 @@ class Example {
 
         $t = new Tag();
 
-        //echo $t->table( [ 'style' => 'border: 1px solid #070;' ],
-        //    [
-        //        $t->tr(
-        //            [
-        //                $t->td( [ 'style' => 'border: 1px solid #000;' ],
-        //                    'Column 1'
-        //                ),
-        //                $t->td( [ 'style' => 'border: 1px solid #000;' ],
-        //                    'Column 2'
-        //                )
-        //            ]
-        //        )
-        //    ]
-        //);
+        echo "\n" . $t->table( a::style('border: 1px solid #070;'),
+            [
+                $t->tr(
+                    [
+                        $t->td( a::style('border: 1px solid #000;' ),
+                            'Column 1'
+                        ),
+                        $t->td( a::style( 'border: 1px solid #000;' ),
+                            'Column 2'
+                        )
+                    ]
+                )
+            ]
+        );
         $this->template();
         //$this->index();
     }
@@ -32,17 +33,18 @@ class Example {
 
         $t = new Tag();
         echo "\n";
-        echo "\n";
 
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         echo $t->div(
             [
-                $t->h1( '{{title}}' ),
-                $t->div( ['class' => 'body'],
+                $t->h1( ['class' => 'test'], 'text' ),
+                $t->h2( '{{title}}' ),
+                $t->div( a::id('body'), a::c1ass('body', 'container'),
                     '{{body}}'
                 )
             ]
         );
-        echo "\n";
+        echo "\n\n";
     }
 
     public function index()

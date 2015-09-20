@@ -4,10 +4,11 @@ namespace liphte\tags\html;
 use liphte\utils\Numbers;
 use Windwalker\Dom\DomElement;
 use Windwalker\Dom\HtmlElement;
-
 /**
  * Class Tag
  * @package liphte\html\tags
+ * @noinspection PhpMethodParametersCountMismatchInspection
+ *
  *
  * @method string a ( array $htmlAttributes = array (), mixed $content = null )
  * @method string abbr ( array $htmlAttributes = array (), mixed $content = null )
@@ -144,11 +145,26 @@ class Tag
     private function getAttributes()
     {
 
-        /** @noinspection PhpParamsInspection */
-        $attributes = $this->getArgument( Numbers::FIRST );
+        $attributes = array();
 
-        if ($attributes === null || !$this->is_assoc( $attributes )) {
-            return array ();
+        foreach( $this->attributes as $attribute ) {
+
+            if( $attribute instanceof Attribute ) {
+
+                $attributes[ $attribute->getName() ] = $attribute->getContent();
+            }
+
+        }
+
+        if ( count( $attributes ) === 0 ) {
+
+            $attributes = $this->getArgument( Numbers::FIRST );
+
+            if ($attributes === null || !$this->is_assoc( $attributes )) {
+                return array ();
+            }
+
+            return $attributes;
         }
 
         return $attributes;
@@ -159,7 +175,7 @@ class Tag
     {
 
         /** @noinspection PhpParamsInspection */
-        $content = $this->getArgument( Numbers::SECOND );
+        $content = $this->getLastArgument();
 
         if ($this->is_assoc( $content )) {
             return null;
@@ -181,10 +197,28 @@ class Tag
         if (count( $this->attributes ) === 0) {
             return null;
         } elseif ($intIndex < count( $this->attributes )) {
-            return $this->attributes[ $intIndex ];
+
+            $result = $this->attributes[ $intIndex ];
+            if( ! $result instanceof Attribute ) {
+                return $result;
+            } else {
+                return null;
+            }
+
         } else {
-            return $this->attributes[ Numbers::FIRST ];
+            return $this->getArgument( Numbers::FIRST );
         }
+    }
+
+    private function getLastArgument()
+    {
+
+        if( count( $this->attributes ) > 0 ) {
+
+            return $this->getArgument( count( $this->attributes )-1 ) ;
+        }
+
+        return null;
     }
 
     private function is_assoc( $array )
