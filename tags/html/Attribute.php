@@ -4,7 +4,7 @@
 namespace liphte\tags\html;
 
 /**
- * Class Tag
+ * Class Attribute
  * @package liphte\html\tags
  *
  * @method static Attribute abbr  ( array $content = array () )
