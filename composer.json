@@ -17,10 +17,8 @@
     "php": ">=5.6.9",
     "windwalker/dom": "~2.0",
     "windwalker/html": "~2.0",
-    "phpunit/phpunit": "dev-master",
-    "phpunit/phpunit-mock-objects": "dev-master",
-    "phpunit/php-code-coverage": "dev-master",
-    "sebastian/resource-operations": "dev-master"
+    "phpunit/phpunit": "4.8.9"
+
   },
   "repositories": [
     {
