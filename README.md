@@ -70,6 +70,8 @@ use liphte\tags\html\Attribute as a;
 
 - [maveius](http://maveius.pl)
 
-
 ## Licence
-MIT
+- MIT
+
+## Home Page
+- [http://maveius.pl/liphte](http://maveius.pl/liphte)
