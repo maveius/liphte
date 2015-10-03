@@ -1,13 +1,13 @@
 <?php
 namespace liphte\tags\html;
 
+use liphte\tags\components\Renderable;
 use liphte\utils\Numbers;
-use Windwalker\Dom\DomElement;
 use Windwalker\Dom\HtmlElement;
+
 /**
  * Class Tag
  * @package liphte\html\tags
- * @noinspection PhpMethodParametersCountMismatchInspection
  *
  *
  * @method string a ( array $htmlAttributes = array (), mixed $content = null )
@@ -126,45 +126,31 @@ class Tag
 
     private $doctype = "<!DOCTYPE html>";
     private $xmlns = "http://www.w3.org/1999/xhtml";
-    private $doctypeXhtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN ' .
-    'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n';
+    private $doctypeXhtml =
+        '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN ' .
+        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n';
 
     private $name;
     private $attributes;
 
-    public function __call( $name, $arguments )
+    public function __call($name, $arguments)
     {
 
         $this->name = $name;
         $this->attributes = $arguments;
 
-        return (string) new HtmlElement( $name, $this->getContent(), $this->getAttributes() );
+        return (string) new HtmlElement($name, $this->getContent(), $this->getAttributes());
     }
 
 
     private function getAttributes()
     {
 
-        $attributes = array();
+        $attributes = $this->getAttributesObjects();
 
-        foreach( $this->attributes as $attribute ) {
+        if ($this->isStillEmpty($attributes)) {
 
-            if( $attribute instanceof Attribute ) {
-
-                $attributes[ $attribute->getName() ] = $attribute->getContent();
-            }
-
-        }
-
-        if ( count( $attributes ) === 0 ) {
-
-            $attributes = $this->getArgument( Numbers::FIRST );
-
-            if ($attributes === null || !$this->is_assoc( $attributes )) {
-                return array ();
-            }
-
-            return $attributes;
+            $attributes = $this->getAttributesAssociative();
         }
 
         return $attributes;
@@ -173,12 +159,108 @@ class Tag
 
     private function getContent()
     {
+        $content = $this->getContentObjects();
 
-        /** @noinspection PhpParamsInspection */
-        $content = $this->getLastArgument();
+        if ($this->isStillEmpty($content)) {
 
-        if ($this->is_assoc( $content )) {
+            $content = $this->getContentArray();
+        }
+
+        return $content;
+    }
+
+    private function isStillEmpty(array $array)
+    {
+
+        return $array === null || count($array) === 0;
+    }
+
+    private function getAttributesObjects()
+    {
+
+        $attributes = array ();
+
+        foreach ($this->attributes as $attribute) {
+
+            if ($attribute instanceof Attribute) {
+
+                $attributes[ $attribute->getName() ] = $attribute->getContent();
+            } else if ( $this->is_assoc( $attribute ) ) {
+
+                foreach ( $attribute as $key => $value ) {
+
+                    $attributes[ $key ] = $value;
+                }
+            }
+
+        }
+
+        return $attributes;
+    }
+
+    private function getAttributesAssociative()
+    {
+
+        $attributes = $this->getArgument(Numbers::FIRST);
+
+        if ($attributes === null || !$this->is_assoc($attributes)) {
+            return array ();
+        }
+
+        return $attributes;
+    }
+
+    private function getContentObjects()
+    {
+
+        $content = array ();
+
+        foreach ($this->attributes as $argument) {
+
+            if ( $argument instanceof Renderable ||
+                ( !is_string($argument) && method_exists($argument, 'render') ) ) {
+
+                array_push( $content, $argument->render() );
+            } else if( is_array( $argument ) && ! $this->is_assoc( $argument ) && !$argument instanceof Renderable ) {
+
+                foreach ( $argument as $element ) {
+
+                    if( is_string( $element ) ) {
+                        array_push( $content, $element );
+                    } else if ( $element instanceof Renderable || method_exists($argument, 'render') ) {
+                        array_push( $content, $element->render() );
+                    }
+                }
+            }
+
+        }
+
+        return $content;
+    }
+
+    private function getContentArray()
+    {
+        $contentObject = $this->getLastArgument();
+
+        if ($this->is_assoc($contentObject) || $contentObject === null) {
             return null;
+        }
+
+        $content = array ();
+
+        if( is_array($contentObject) && !$this->isStillEmpty($contentObject) ) {
+
+            foreach ($contentObject as $argument) {
+
+                if ($argument instanceof Renderable || method_exists($argument, 'render')) {
+                    array_push( $content, $argument->render() );
+                } else {
+                    array_push( $content, $argument );
+                }
+
+            }
+        } else {
+            array_push( $content, $contentObject );
         }
 
         return $content;
@@ -189,42 +271,42 @@ class Tag
      *
      * @return mixed
      */
-    private function getArgument( $index )
+    private function getArgument($index)
     {
 
         $intIndex = (integer) $index;
 
-        if (count( $this->attributes ) === 0) {
+        if (count($this->attributes) === 0) {
             return null;
-        } elseif ($intIndex < count( $this->attributes )) {
+        } elseif ($intIndex < count($this->attributes)) {
 
             $result = $this->attributes[ $intIndex ];
-            if( ! $result instanceof Attribute ) {
+            if (!$result instanceof Attribute) {
                 return $result;
             } else {
                 return null;
             }
 
         } else {
-            return $this->getArgument( Numbers::FIRST );
+            return $this->getArgument(Numbers::FIRST);
         }
     }
 
     private function getLastArgument()
     {
 
-        if( count( $this->attributes ) > 0 ) {
+        if (count($this->attributes) > 0) {
 
-            return $this->getArgument( count( $this->attributes )-1 ) ;
+            return $this->getArgument(count($this->attributes) - 1);
         }
 
         return null;
     }
 
-    private function is_assoc( $array )
+    private function is_assoc($array)
     {
 
-        return is_array( $array ) && (bool) count( array_filter( array_keys( $array ), 'is_string' ) );
+        return is_array($array) && (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 
     /**
@@ -245,7 +327,9 @@ class Tag
         return $this->doctypeXhtml;
     }
 
-    public function doctype() {
+    public function doctype()
+    {
+
         return $this->doctype;
     }
 }
