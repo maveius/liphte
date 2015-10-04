@@ -56,7 +56,7 @@ namespace liphte\tags\html;
  * @method static Attribute high ( array $content = array () )
  * @method static Attribute href ( array $content = array () )
  * @method static Attribute hreflang ( array $content = array () )
- * @method static Attribute http-equiv ( array $content = array () )
+ * @method static Attribute httpEquiv ( array $content = array () )
  * @method static Attribute icon ( array $content = array () )
  * @method static Attribute id ( array $content = array () )
  * @method static Attribute inputmode ( array $content = array () )
@@ -238,6 +238,8 @@ class Attribute
             $name = 'class';
         } else if ($name === 'acceptCharset') {
             $name = 'accept-charset';
+        } else if ($name === 'httpEquiv') {
+            $name = 'http-equiv';
         }
 
         return new Attribute($name, $arguments);
