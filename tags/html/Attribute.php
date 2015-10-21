@@ -275,6 +275,8 @@ class Attribute
             $name = 'accept-charset';
         } else if ($name === 'httpEquiv') {
             $name = 'http-equiv';
+        } else if (strpos($name,'aria') !== false) {
+            $name = 'aria' . '-' . strtolower( substr($name, 4) );
         }
 
         return new Attribute($name, $arguments);

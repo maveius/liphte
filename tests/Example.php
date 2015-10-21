@@ -36,7 +36,9 @@ class Example {
         echo "\n";
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        echo $t->div( a::id('main'),
+        echo $t->span( a::ariaChecked('false') );
+
+        $t->div( a::id('main'),
             [
                 $t->h1( ['class' => 'test'], 'text' ),
                 $t->h2( '{{title}}' ),
