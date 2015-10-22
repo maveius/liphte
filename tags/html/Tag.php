@@ -362,17 +362,23 @@ class Tag
                 if($first) {
                     $condition = $contentRow . '> ';
                     $first = false;
-                } else if ($content === '') {
-                   $content = $contentRow;
+                } else if ( $contentRow !== '[endif]' ) {
+                   $content .= $contentRow;
                 }  else {
-                    $closeCondition = " <!" . $contentRow;
+                    $closeCondition = "<!" . $contentRow;
                 }
             }
-
 
         } else {
             $noConditionSpace = ' ';
         }
-        return '<' . $this->name . $noConditionSpace . $condition . $content . $noConditionSpace . $closeCondition . '-->';
+
+        return
+            '<' . $this->name .
+            $noConditionSpace .
+            $condition .
+            $content .
+            $noConditionSpace .
+            $closeCondition . '-->';
     }
 }

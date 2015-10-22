@@ -3,6 +3,7 @@ namespace liphte\tests;
 use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
 use Panel;
+use Windwalker\Dom\DomElements;
 
 class Example {
 
@@ -131,9 +132,18 @@ class Example {
         echo "\n";
 
         $comment = "!--";
-        echo $t->$comment(
+        echo (string) new DomElements(
             [
-                'test komentarza'
+                $t->$comment("HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries"),
+                $t->$comment("WARNING: Respond.js doesn't work if you view the page via file://"),
+                $t->$comment(
+                    [
+                        '[if lt IE 9]',
+                        $t->script(a::src("https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js")),
+                        $t->script(a::src("https://oss.maxcdn.com/respond/1.4.2/respond.min.js")),
+                        '[endif]'
+                    ]
+                )
             ]
         );
 
