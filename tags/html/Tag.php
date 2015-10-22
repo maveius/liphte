@@ -3,6 +3,8 @@ namespace liphte\tags\html;
 
 use liphte\tags\components\Renderable;
 use liphte\utils\Numbers;
+use liphte\utils\StringUtils;
+use Windwalker\Dom\Builder\DomBuilder;
 use Windwalker\Dom\HtmlElement;
 
 /**
@@ -138,6 +140,10 @@ class Tag
 
         $this->name = $name;
         $this->attributes = $arguments;
+
+        if( $this->isComment($name) ) {
+            return $this->getComment();
+        }
 
         return (string) new HtmlElement($name, $this->getContent(), $this->getAttributes());
     }
@@ -330,6 +336,43 @@ class Tag
     public function doctype()
     {
 
+        if( func_num_args() > 0 ) {
+            return $this->doctype . func_get_arg(0);
+        }
+
         return $this->doctype;
+    }
+
+    private function isComment($name)
+    {
+        return $name === '!--';
+    }
+
+    private function getComment()
+    {
+        $content = implode('', $this->getContent() );
+        $condition = $closeCondition = '';
+
+        if( StringUtils::startsWith($content, '[if') ) {
+            $noConditionSpace = '';
+            $content = '';
+            $first = true;
+            foreach ($this->getContent() as $contentRow ) {
+
+                if($first) {
+                    $condition = $contentRow . '> ';
+                    $first = false;
+                } else if ($content === '') {
+                   $content = $contentRow;
+                }  else {
+                    $closeCondition = " <!" . $contentRow;
+                }
+            }
+
+
+        } else {
+            $noConditionSpace = ' ';
+        }
+        return '<' . $this->name . $noConditionSpace . $condition . $content . $noConditionSpace . $closeCondition . '-->';
     }
 }

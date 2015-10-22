@@ -25,8 +25,10 @@ class Example {
 //                )
 //            ]
 //        );
-        $this->template();
-        //$this->index();
+//        $this->template();
+//        $this->index();
+
+        $this->comments();
     }
 
     public function template()
@@ -58,7 +60,7 @@ class Example {
         echo "\n";
         echo "\n";
 
-        echo $t->doctype() .
+        echo $t->doctype(
             $t->html(['ng-app' => 'nameApp'],
                 [
                     $t->head(
@@ -117,7 +119,24 @@ class Example {
                         ]
                     )
                 ]
-            );
+            )
+        );
+        echo "\n";
+    }
+
+    private function comments()
+    {
+        $t = new Tag();
+
+        echo "\n";
+
+        $comment = "!--";
+        echo $t->$comment(
+            [
+                'test komentarza'
+            ]
+        );
+
         echo "\n";
     }
 
