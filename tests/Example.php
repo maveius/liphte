@@ -1,6 +1,8 @@
 <?php
 namespace liphte\tests;
+use liphte\tags\components\Renderable;
 use liphte\tags\html\Attribute as a;
+use liphte\tags\html\Attribute;
 use liphte\tags\html\Tag;
 use Panel;
 use Windwalker\Dom\DomElements;
@@ -26,10 +28,11 @@ class Example {
 //                )
 //            ]
 //        );
-//        $this->template();
+        $this->template();
 //        $this->index();
 
-        $this->comments();
+//        $this->comments();
+//        $this->needing();
     }
 
     public function template()
@@ -39,9 +42,9 @@ class Example {
         echo "\n";
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        echo $t->span( a::ariaChecked('false') );
+        $t->span( a::ariaChecked('false') );
 
-        $t->div( a::id('main'),
+        echo $t->div( a::id('main'),
             [
                 $t->h1( ['class' => 'test'], 'text' ),
                 $t->h2( '{{title}}' ),
@@ -148,6 +151,185 @@ class Example {
         );
 
         echo "\n";
+    }
+
+    private function needing() {
+
+        $t = new Tag();
+// CASE 1
+        /** @noinspection PhpUndefinedClassInspection */
+        /** @method div( assoc_array $htmlAttributes, string $content ) */
+        /** @var string (last argument) */
+        $t->div(['class'=>'test'], 'my content');
+// CASE 2
+        /** @noinspection PhpUndefinedClassInspection */
+        /** @method div( assoc_array $htmlAttributes, array_of_string ... $content ) */
+        $t->div(['class'=>'test'],
+            ['my content', 'my second content'],
+            [' another content']
+        );
+// CASE 3
+        /** @noinspection PhpUndefinedClassInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( assoc_array $htmlAttributes, Renderable ... $content ) */
+        $t->span(['class'=>'test'],
+            new Panel('my title','my content'),
+            new Panel('my second title', 'my second content')
+        );
+// CASE 4
+        /** @noinspection PhpUndefinedClassInspection */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( assoc_array $htmlAttributes, mixed ... $content ) */
+        /** @var mixed = array_of_string|Renderable */
+        $t->div(['class'=>'test'],
+            [
+                'some content',
+                'another content'
+            ],
+            new Panel('my second title', 'my second content')
+        );
+// CASE 5
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent ) */
+        /** @var mixed_content = string|Renderable */
+        /** @var mixed = assoc_array|array_of_mixed_content|Renderable */
+        $t->div(['class'=>'test'], ['id'=>'test content'],
+            [
+                'some content',
+                new Panel('my first panel title', 'my first content')
+            ],
+            new Panel('my second title', 'my second content')
+        );
+
+        // ###################### Attributes ################################
+// CASE 1
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|string (last argument) */
+        $t->div(a::c1ass('test'), a::id('test-content'), 'my content');
+// CASE 2
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|array_of_string */
+        $t->div(a::c1ass('test'), a::id('test-content'),
+            ['my content ', 'my second content '],
+            ['else content']
+        );
+// CASE 3
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|Renderable */
+        $t->span(a::c1ass('test'), a::id('test-content'),
+            new Panel('my title','my content'),
+            new Panel('my second title', 'my second content')
+        );
+// CASE 4
+        /** @noinspection PhpUndefinedClassInspection, PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|array_of_string|Renderable */
+        $t->div(a::c1ass('test'), a::id('test-content'),
+            [
+                'some content',
+                'another content'
+            ],
+            new Panel('my second title', 'my second content')
+        );
+// CASE 5
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed_content = string|Renderable */
+        /** @var mixed = Attribute|array_of_mixed_content|Renderable */
+        $t->div(a::c1ass('test'), a::id('test-content'),
+            [
+                'some content',
+                new Panel('my first panel title', 'my first content')
+            ],
+            new Panel('my second title', 'my second content')
+        );
+
+        // ###################### Attributes And Assoc ################################
+// CASE 1
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|assoc_array|string (last argument) */
+        $t->div(a::c1ass('test'), ['id'=>'test-content'], 'my content');
+
+// CASE 2
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|assoc_array|array_of_string */
+        $t->div(a::c1ass('test'), ['id'=>'test-content'],
+            ['my content ', 'my second content '],
+            ['another content']
+        );
+// CASE 3
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|assoc_array|Renderable */
+        $t->span(a::c1ass('test'), ['id'=>'test-content'],
+            new Panel('my title','my content'),
+            new Panel('my second title', 'my second content')
+        );
+// CASE 4
+        /** @noinspection PhpUndefinedClassInspection, PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed = Attribute|assoc_array|array_of_string|Renderable */
+        $t->div(a::c1ass('test'), ['id'=>'test-content'],
+            [
+                'some content',
+                'another content'
+            ],
+            new Panel('my second title', 'my second content')
+        );
+// CASE 5
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed_content = string|Renderable */
+        /** @var mixed = Attribute|assoc_array|array_of_mixed_content|Renderable */
+        $t->div(a::c1ass('test'), ['id'=>'test-content'],
+            [
+                'some content',
+                new Panel('my first panel title', 'my first content')
+            ],
+            new Panel('my second title', 'my second content')
+        );
+
+// CASE 6
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent) */
+        /** @var mixed_content = string|Renderable */
+        /** @var mixed = Attribute|Attributes|assoc_array|array_of_mixed_content|string|Renderable*/
+        $t->div(
+            a::c1ass('test'),                                       //Attribute   |
+            ['id'=>'test-content'],                                 //assoc_array |
+            [
+                'some content',
+                new Panel('my first panel title', 'my first content')
+            ],                                                     // array_of_mixed_content |
+            new Panel('my second title', 'my second content'),     // Renderable
+            'aqua'                                                 // string
+        );
+
+
+        // CASE 6
+        /** @noinspection PhpUndefinedClassInspection PhpMethodParametersCountMismatchInspection */
+        /** @method div( mixed ... $htmlAttributesOrContent ) */
+        /** @var mixed = {attribute|content} */
+        /** @var attribute = {Attribute|Attributes|assoc_array} */
+        /** @var content = {string|array_of_string|array_of_mixed_content|Renderable} */
+        /** @var mixed_content = {string|Renderable} */
+        $t->div(
+            a::c1ass('test'),                                       //Attribute   |
+            ['id'=>'test-content']
+            ,                                 //assoc_array |
+            [
+                'some content',
+                ' test'
+            ]
+            ,                                                     // array_of_mixed_content |
+            new Panel('my second title', 'my second content'),     // Renderable
+            'aqua'                                                 // string
+        );
     }
 
 }

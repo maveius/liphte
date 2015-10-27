@@ -1,6 +1,7 @@
 <?php
 namespace liphte\tags\html;
 
+use html\Attributes;
 use liphte\tags\components\Renderable;
 use liphte\utils\Numbers;
 use liphte\utils\StringUtils;
@@ -152,11 +153,12 @@ class Tag
     private function getAttributes()
     {
 
-        $attributes = $this->getAttributesObjects();
+        $attributes = array();
 
-        if ($this->isStillEmpty($attributes)) {
+        foreach ($this->attributes as $attribute) {
 
-            $attributes = $this->getAttributesAssociative();
+            $attributes = $this->extract($attributes, $attribute);
+
         }
 
         return $attributes;
@@ -165,108 +167,12 @@ class Tag
 
     private function getContent()
     {
-        $content = $this->getContentObjects();
-
-        if ($this->isStillEmpty($content)) {
-
-            $content = $this->getContentArray();
-        }
-
-        return $content;
-    }
-
-    private function isStillEmpty(array $array)
-    {
-
-        return $array === null || count($array) === 0;
-    }
-
-    private function getAttributesObjects()
-    {
-
-        $attributes = array ();
-
-        foreach ($this->attributes as $attribute) {
-
-            if ($attribute instanceof Attribute) {
-
-                $attributes[ $attribute->getName() ] = $attribute->getContent();
-            } else if ( $this->is_assoc( $attribute ) ) {
-
-                foreach ( $attribute as $key => $value ) {
-
-                    $attributes[ $key ] = $value;
-                }
-            }
-
-        }
-
-        return $attributes;
-    }
-
-    private function getAttributesAssociative()
-    {
-
-        $attributes = $this->getArgument(Numbers::FIRST);
-
-        if ($attributes === null || !$this->is_assoc($attributes)) {
-            return array ();
-        }
-
-        return $attributes;
-    }
-
-    private function getContentObjects()
-    {
-
         $content = array ();
 
         foreach ($this->attributes as $argument) {
 
-            if ( $argument instanceof Renderable ||
-                ( !is_string($argument) && method_exists($argument, 'render') ) ) {
+            $content = $this->prepare( $content, $argument );
 
-                array_push( $content, $argument->render() );
-            } else if( is_array( $argument ) && ! $this->is_assoc( $argument ) && !$argument instanceof Renderable ) {
-
-                foreach ( $argument as $element ) {
-
-                    if( is_string( $element ) ) {
-                        array_push( $content, $element );
-                    } else if ( $element instanceof Renderable || method_exists($argument, 'render') ) {
-                        array_push( $content, $element->render() );
-                    }
-                }
-            }
-
-        }
-
-        return $content;
-    }
-
-    private function getContentArray()
-    {
-        $contentObject = $this->getLastArgument();
-
-        if ($this->is_assoc($contentObject) || $contentObject === null) {
-            return null;
-        }
-
-        $content = array ();
-
-        if( is_array($contentObject) && !$this->isStillEmpty($contentObject) ) {
-
-            foreach ($contentObject as $argument) {
-
-                if ($argument instanceof Renderable || method_exists($argument, 'render')) {
-                    array_push( $content, $argument->render() );
-                } else {
-                    array_push( $content, $argument );
-                }
-
-            }
-        } else {
-            array_push( $content, $contentObject );
         }
 
         return $content;
@@ -298,23 +204,6 @@ class Tag
         }
     }
 
-    private function getLastArgument()
-    {
-
-        if (count($this->attributes) > 0) {
-
-            return $this->getArgument(count($this->attributes) - 1);
-        }
-
-        return null;
-    }
-
-    private function is_assoc($array)
-    {
-
-        return is_array($array) && (bool) count(array_filter(array_keys($array), 'is_string'));
-    }
-
     /**
      * @return string
      */
@@ -343,42 +232,98 @@ class Tag
         return $this->doctype;
     }
 
-    private function isComment($name)
-    {
-        return $name === '!--';
-    }
-
     private function getComment()
     {
         $content = implode('', $this->getContent() );
         $condition = $closeCondition = '';
 
         if( StringUtils::startsWith($content, '[if') ) {
-            $noConditionSpace = '';
+
+            $space = '';
             $content = '';
             $first = true;
             foreach ($this->getContent() as $contentRow ) {
 
-                if($first) {
+                if( $first ) {
                     $condition = $contentRow . '> ';
                     $first = false;
                 } else if ( $contentRow !== '[endif]' ) {
-                   $content .= $contentRow;
+                    $content .= $contentRow;
                 }  else {
                     $closeCondition = "<!" . $contentRow;
                 }
             }
 
         } else {
-            $noConditionSpace = ' ';
+            $space = ' ';
         }
 
         return
             '<' . $this->name .
-            $noConditionSpace .
+            $space .
             $condition .
             $content .
-            $noConditionSpace .
+            $space .
             $closeCondition . '-->';
     }
+
+    private function extract($attributes, $attribute)
+    {
+
+        if ($attribute instanceof Attribute) {
+
+            $attributes = Attributes::merge($attributes, $attribute);
+
+        } else if ( $attribute instanceof Attributes ) {
+
+            $attributes = $attribute->getAttributes();
+
+        } else if ( $this->isAssoc( $attribute ) ) {
+
+            $attributes = array_merge($attributes, $attribute);
+
+        }
+
+        return $attributes;
+    }
+
+    private function prepare($content, $magicArgument)
+    {
+
+        if ( is_string($magicArgument) ) {
+
+            array_push($content, $magicArgument);
+
+        } else if ( $magicArgument instanceof Renderable || $this->canBeRender( $magicArgument ) ) {
+
+            array_push( $content, $magicArgument->render() );
+
+        } else if( is_array( $magicArgument ) && ! $this->isAssoc( $magicArgument ) ) {
+
+            foreach ($magicArgument as $element) {
+
+                $content = $this->prepare( $content, $element );
+            }
+
+        }
+
+        return $content;
+    }
+
+    private function canBeRender($object) {
+
+        return !is_string($object) && method_exists($object, 'render') ;
+    }
+
+    private function isAssoc($array)
+    {
+
+        return is_array($array) && (bool) count(array_filter(array_keys($array), 'is_string'));
+    }
+
+    private function isComment($name)
+    {
+        return $name === '!--';
+    }
+
 }
