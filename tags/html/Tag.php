@@ -167,7 +167,7 @@ class Tag
 
     private function getContent()
     {
-        $content = array ();
+        $content = array();
 
         foreach ($this->attributes as $argument) {
 
@@ -175,9 +175,9 @@ class Tag
 
         }
 
-        return $content;
+        return empty($content) ? null : $content;
     }
-
+/**/
     /**
      * @param integer $index
      *
