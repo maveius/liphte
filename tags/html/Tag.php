@@ -137,7 +137,7 @@ class Tag
     {
 
         if( static::isComment($name) ) {
-            return static::getComment($name);
+            return static::getComment($name, $arguments);
         }
 
         return (string) new HtmlElement($name, static::getContent($arguments), static::getAttributes($arguments));
@@ -228,11 +228,12 @@ class Tag
 
     /**
      * @param string $name
+     * @param $arguments
      * @return string
      */
-    private static function getComment($name)
+    private static function getComment($name, $arguments)
     {
-        $content = implode('', static::getContent() );
+        $content = implode('', static::getContent($arguments) );
         $condition = $closeCondition = '';
 
         if( StringUtils::startsWith($content, '[if') ) {
