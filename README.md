@@ -8,20 +8,20 @@ It's lightweight and minimalistic wrapper of html or dom builder based on [windw
 #### Example:
 ```php
 /** Import **/
-use liphte\tags\html\Tag;
+T::
 use liphte\tags\html\Attribute as a;
 
 /** In your code (for example controller) **/
-  $t = new Tag();
+  
 
-  $result = $t->table ([ 'style' => 'border: 1px solid #070;' ],
+  $result = T::table ([ 'style' => 'border: 1px solid #070;' ],
       [
-          $t->tr(
+          T::tr(
               [
-                  $t->td( a::style( 'border: 1px solid #000;' ),
+                  T::td( a::style( 'border: 1px solid #000;' ),
                       'Column 1'
                   ),
-                  $t->td( a::style( 'border: 1px solid #000;' ),
+                  T::td( a::style( 'border: 1px solid #000;' ),
                       'Column 2'
                   )
               ]

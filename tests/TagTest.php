@@ -4,7 +4,7 @@
 namespace liphte\tests;
 
 use liphte\tags\html\Attribute as a;
-use liphte\tags\html\Tag;
+use liphte\tags\html\Tag as T;
 use Panel;
 use PHPUnit_Framework_TestCase;
 
@@ -15,16 +15,16 @@ class TagTest
     function testBasicDomTags()
     {
 
-        $t = new Tag();
-        $actual = $t->html(
+
+        $actual = T::html(
             [
-                $t->head(),
-                $t->body(
+                T::head(),
+                T::body(
                     [
-                        $t->header(
-                            $t->h1( 'header' )
+                        T::header(
+                            T::h1( 'header' )
                         ),
-                        $t->div( [ 'class' => 'content' ],
+                        T::div( [ 'class' => 'content' ],
                             'inside content'
                         )
                     ]
@@ -41,16 +41,16 @@ class TagTest
     function testBasicDomAttributesTags()
     {
 
-        $t = new Tag();
-        $actual = $t->html(
+
+        $actual = T::html(
             [
-                $t->head( '' ),
-                $t->body( [ 'class' => "container" ],
+                T::head( '' ),
+                T::body( [ 'class' => "container" ],
                     [
-                        $t->header( [ 'style' => 'width: 1px solid #000;', 'id' => 'my-header' ],
-                            $t->h1( 'header' )
+                        T::header( [ 'style' => 'width: 1px solid #000;', 'id' => 'my-header' ],
+                            T::h1( 'header' )
                         ),
-                        $t->div( [ 'class' => 'content' ],
+                        T::div( [ 'class' => 'content' ],
                             'inside content'
                         )
                     ]
@@ -66,16 +66,16 @@ class TagTest
 
     function testMixedTags()
     {
-        $t = new Tag();
-        $actual = $t->html(
+
+        $actual = T::html(
             [
-                $t->head(),
-                $t->body( a::c1ass( 'container' ),
+                T::head(),
+                T::body( a::c1ass( 'container' ),
                     [
-                        $t->header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
-                            $t->h1( 'header' )
+                        T::header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
+                            T::h1( 'header' )
                         ),
-                        $t->div( a::c1ass('content'),
+                        T::div( a::c1ass('content'),
                             'inside content'
                         )
                     ]
@@ -92,14 +92,14 @@ class TagTest
 
     function testRenderableTags()
     {
-        $t = new Tag();
-        $actual = $t->html(
+
+        $actual = T::html(
             [
-                $t->head(),
-                $t->body( a::c1ass( 'container' ),
+                T::head(),
+                T::body( a::c1ass( 'container' ),
                     [
-                        $t->header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
-                            $t->h1( 'header' )
+                        T::header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
+                            T::h1( 'header' )
                         ),
                         new Panel('Test', 'inside content')
                     ]
@@ -116,14 +116,14 @@ class TagTest
 
     function testRenderableOuterTags()
     {
-        $t = new Tag();
-        $actual = $t->html(
+
+        $actual = T::html(
             [
-                $t->head(),
-                $t->body( a::c1ass( 'container' ),
+                T::head(),
+                T::body( a::c1ass( 'container' ),
                     [
-                        $t->header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
-                            $t->h1( 'header' )
+                        T::header( ['style' => 'width: 1px solid #000;'], a::id( 'my-header' ),
+                            T::h1( 'header' )
                         )
                     ],
                     new Panel('Test', 'inside content')

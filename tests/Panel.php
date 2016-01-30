@@ -3,7 +3,7 @@
 
 use liphte\tags\components\Renderable;
 use liphte\tags\html\Attribute as a;
-use liphte\tags\html\Tag;
+use liphte\tags\html\Tag as T;
 
 class Panel implements Renderable
 {
@@ -37,15 +37,15 @@ class Panel implements Renderable
          *
          */
 
-        $t = new Tag();
-        return $t->div( a::c1ass("panel", "panel-default"),
+
+        return T::div( a::c1ass("panel", "panel-default"),
             [
-                $t->div( a::c1ass("panel-heading"),
-                    $t->h3( a::c1ass("panel-title"),
+                T::div( a::c1ass("panel-heading"),
+                    T::h3( a::c1ass("panel-title"),
                         $this->title
                     )
                 ),
-                $t->div( a::c1ass("panel-body"),
+                T::div( a::c1ass("panel-body"),
                     $this->content
                 )
             ]
