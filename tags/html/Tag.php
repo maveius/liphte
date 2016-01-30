@@ -241,7 +241,7 @@ class Tag
             $space = '';
             $content = '';
             $first = true;
-            foreach (self::getContent() as $contentRow ) {
+            foreach (self::getContent($arguments) as $contentRow ) {
 
                 if( $first ) {
                     $condition = $contentRow . '> ';
