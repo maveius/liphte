@@ -1,3 +1,4 @@
+![ Liphte ](http://maveius.pl/img/portfolio/liphte-big.png)
 # Liphte
 
 Lightweight & minimalistic HTML Builder/Generator (or maybe Template Engine) for PHP
