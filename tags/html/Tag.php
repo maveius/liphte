@@ -5,7 +5,6 @@ use html\Attributes;
 use liphte\tags\components\Renderable;
 use liphte\utils\Numbers;
 use liphte\utils\StringUtils;
-use Windwalker\Dom\Builder\DomBuilder;
 use Windwalker\Dom\HtmlElement;
 
 /**
@@ -13,119 +12,120 @@ use Windwalker\Dom\HtmlElement;
  * @package liphte\html\tags
  *
  *
- * @method string a ( array $htmlAttributes = array (), mixed $content = null )
- * @method string abbr ( array $htmlAttributes = array (), mixed $content = null )
- * @method string address ( array $htmlAttributes = array (), mixed $content = null )
- * @method string area ( array $htmlAttributes = array (), mixed $content = null )
- * @method string article ( array $htmlAttributes = array (), mixed $content = null )
- * @method string aside ( array $htmlAttributes = array (), mixed $content = null )
- * @method string audio ( array $htmlAttributes = array (), mixed $content = null )
- * @method string b ( array $htmlAttributes = array (), mixed $content = null )
- * @method string base ( array $htmlAttributes = array (), mixed $content = null )
- * @method string bdi ( array $htmlAttributes = array (), mixed $content = null )
- * @method string bdo ( array $htmlAttributes = array (), mixed $content = null )
- * @method string blockquote ( array $htmlAttributes = array (), mixed $content = null )
- * @method string body ( array $htmlAttributes = array (), mixed $content = null )
- * @method string br ( array $htmlAttributes = array (), mixed $content = null )
- * @method string button ( array $htmlAttributes = array (), mixed $content = null )
- * @method string canvas ( array $htmlAttributes = array (), mixed $content = null )
- * @method string caption ( array $htmlAttributes = array (), mixed $content = null )
- * @method string cite ( array $htmlAttributes = array (), mixed $content = null )
- * @method string code ( array $htmlAttributes = array (), mixed $content = null )
- * @method string col ( array $htmlAttributes = array (), mixed $content = null )
- * @method string colgroup ( array $htmlAttributes = array (), mixed $content = null )
- * @method string command ( array $htmlAttributes = array (), mixed $content = null )
- * @method string datalist ( array $htmlAttributes = array (), mixed $content = null )
- * @method string dd ( array $htmlAttributes = array (), mixed $content = null )
- * @method string del ( array $htmlAttributes = array (), mixed $content = null )
- * @method string details ( array $htmlAttributes = array (), mixed $content = null )
- * @method string dfn ( array $htmlAttributes = array (), mixed $content = null )
- * @method string div ( array $htmlAttributes = array (), mixed $content = null )
- * @method string dl ( array $htmlAttributes = array (), mixed $content = null )
- * @method string dt ( array $htmlAttributes = array (), mixed $content = null )
- * @method string em ( array $htmlAttributes = array (), mixed $content = null )
- * @method string embed ( array $htmlAttributes = array (), mixed $content = null )
- * @method string fieldset ( array $htmlAttributes = array (), mixed $content = null )
- * @method string figcaption ( array $htmlAttributes = array (), mixed $content = null )
- * @method string figure ( array $htmlAttributes = array (), mixed $content = null )
- * @method string footer ( array $htmlAttributes = array (), mixed $content = null )
- * @method string form ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h1 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h2 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h3 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h4 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h5 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string h6 ( array $htmlAttributes = array (), mixed $content = null )
- * @method string head ( array $htmlAttributes = array (), mixed $content = null )
- * @method string header ( array $htmlAttributes = array (), mixed $content = null )
- * @method string hgroup ( array $htmlAttributes = array (), mixed $content = null )
- * @method string hr ( array $htmlAttributes = array (), mixed $content = null )
- * @method string html ( array $htmlAttributes = array (), mixed $content = null )
- * @method string i ( array $htmlAttributes = array (), mixed $content = null )
- * @method string iframe ( array $htmlAttributes = array (), mixed $content = null )
- * @method string img ( array $htmlAttributes = array (), mixed $content = null )
- * @method string input ( array $htmlAttributes = array (), mixed $content = null )
- * @method string ins ( array $htmlAttributes = array (), mixed $content = null )
- * @method string kbd ( array $htmlAttributes = array (), mixed $content = null )
- * @method string keygen ( array $htmlAttributes = array (), mixed $content = null )
- * @method string label ( array $htmlAttributes = array (), mixed $content = null )
- * @method string legend ( array $htmlAttributes = array (), mixed $content = null )
- * @method string li ( array $htmlAttributes = array (), mixed $content = null )
- * @method string link ( array $htmlAttributes = array (), mixed $content = null )
- * @method string map ( array $htmlAttributes = array (), mixed $content = null )
- * @method string mark ( array $htmlAttributes = array (), mixed $content = null )
- * @method string menu ( array $htmlAttributes = array (), mixed $content = null )
- * @method string meta ( array $htmlAttributes = array (), mixed $content = null )
- * @method string meter ( array $htmlAttributes = array (), mixed $content = null )
- * @method string nav ( array $htmlAttributes = array (), mixed $content = null )
- * @method string noscript ( array $htmlAttributes = array (), mixed $content = null )
- * @method string object ( array $htmlAttributes = array (), mixed $content = null )
- * @method string ol ( array $htmlAttributes = array (), mixed $content = null )
- * @method string optgroup ( array $htmlAttributes = array (), mixed $content = null )
- * @method string option ( array $htmlAttributes = array (), mixed $content = null )
- * @method string output ( array $htmlAttributes = array (), mixed $content = null )
- * @method string p ( array $htmlAttributes = array (), mixed $content = null )
- * @method string param ( array $htmlAttributes = array (), mixed $content = null )
- * @method string pre ( array $htmlAttributes = array (), mixed $content = null )
- * @method string progress ( array $htmlAttributes = array (), mixed $content = null )
- * @method string q ( array $htmlAttributes = array (), mixed $content = null )
- * @method string rp ( array $htmlAttributes = array (), mixed $content = null )
- * @method string rt ( array $htmlAttributes = array (), mixed $content = null )
- * @method string ruby ( array $htmlAttributes = array (), mixed $content = null )
- * @method string s ( array $htmlAttributes = array (), mixed $content = null )
- * @method string samp ( array $htmlAttributes = array (), mixed $content = null )
- * @method string script ( array $htmlAttributes = array (), mixed $content = null )
- * @method string section ( array $htmlAttributes = array (), mixed $content = null )
- * @method string select ( array $htmlAttributes = array (), mixed $content = null )
- * @method string small ( array $htmlAttributes = array (), mixed $content = null )
- * @method string source ( array $htmlAttributes = array (), mixed $content = null )
- * @method string span ( array $htmlAttributes = array (), mixed $content = null )
- * @method string strong ( array $htmlAttributes = array (), mixed $content = null )
- * @method string style ( array $htmlAttributes = array (), mixed $content = null )
- * @method string sub ( array $htmlAttributes = array (), mixed $content = null )
- * @method string summary ( array $htmlAttributes = array (), mixed $content = null )
- * @method string sup ( array $htmlAttributes = array (), mixed $content = null )
- * @method string table ( array $htmlAttributes = array (), mixed $content = null )
- * @method string tbody ( array $htmlAttributes = array (), mixed $content = null )
- * @method string td ( array $htmlAttributes = array (), mixed $content = null )
- * @method string textarea ( array $htmlAttributes = array (), mixed $content = null )
- * @method string tfoot ( array $htmlAttributes = array (), mixed $content = null )
- * @method string th ( array $htmlAttributes = array (), mixed $content = null )
- * @method string thead ( array $htmlAttributes = array (), mixed $content = null )
- * @method string time ( array $htmlAttributes = array (), mixed $content = null )
- * @method string title ( array $htmlAttributes = array (), mixed $content = null )
- * @method string tr ( array $htmlAttributes = array (), mixed $content = null )
- * @method string track ( array $htmlAttributes = array (), mixed $content = null )
- * @method string u ( array $htmlAttributes = array (), mixed $content = null )
- * @method string ul ( array $htmlAttributes = array (), mixed $content = null )
- * @method string var ( array $htmlAttributes = array (), mixed $content = null )
- * @method string video ( array $htmlAttributes = array (), mixed $content = null )
- * @method string wbr ( array $htmlAttributes = array (), mixed $content = null )
- *
+ * @method string a ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string abbr ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string address ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string area ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string article ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string aside ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string audio ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string b ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string base ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string bdi ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string bdo ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string blockquote ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string body ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string br ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string button ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string canvas ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string caption ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string cite ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string code ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string col ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string colgroup ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string command ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string datalist ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string dd ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string del ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string details ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string dfn ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string div ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string dl ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string dt ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string em ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string embed ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string fieldset ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string figcaption ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string figure ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string footer ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string form ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h1 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h2 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h3 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h4 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h5 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string h6 ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string head ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string header ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string hgroup ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string hr ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string html ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string i ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string iframe ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string img ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string input ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string ins ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string kbd ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string keygen ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string label ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string legend ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string li ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string link ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string map ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string mark ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string menu ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string meta ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string meter ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string nav ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string noscript ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string object ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string ol ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string optgroup ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string option ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string output ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string p ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string param ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string pre ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string progress ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string q ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string rp ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string rt ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string ruby ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string s ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string samp ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string script ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string section ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string select ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string small ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string source ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string span ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string strong ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string style ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string sub ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string summary ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string sup ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string table ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string tbody ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string td ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string textarea ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string tfoot ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string th ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string thead ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string time ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string title ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string tr ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string track ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string u ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string ul ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string var ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string video ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
+ * @method string wbr ( array $htmlAttributes = array (), mixed ... $attributesOrContent )
  *
  */
 class Tag
 {
+
+    private static $instance;
 
     private $doctype = "<!DOCTYPE html>";
     private $xmlns = "http://www.w3.org/1999/xhtml";
@@ -133,43 +133,24 @@ class Tag
         '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN ' .
         'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n';
 
-    private $name;
-    private $attributes;
+    protected function __construct() {}
 
     public function __call($name, $arguments)
     {
 
-        $this->name = $name;
-        $this->attributes = $arguments;
-
         if( $this->isComment($name) ) {
-            return $this->getComment();
+            return $this->getComment($arguments, $name);
         }
 
-        return (string) new HtmlElement($name, $this->getContent(), $this->getAttributes());
+        return (string) new HtmlElement($name, $this->getContent($arguments), $this->getAttributes($arguments));
     }
 
 
-    private function getAttributes()
-    {
-
-        $attributes = array();
-
-        foreach ($this->attributes as $attribute) {
-
-            $attributes = $this->extract($attributes, $attribute);
-
-        }
-
-        return $attributes;
-    }
-
-
-    private function getContent()
+    private function getContent(array $arguments)
     {
         $content = array();
 
-        foreach ($this->attributes as $argument) {
+        foreach ($arguments as $argument) {
 
             $content = $this->prepare( $content, $argument );
 
@@ -177,22 +158,37 @@ class Tag
 
         return empty($content) ? null : $content;
     }
+
+
+    private function getAttributes(array $arguments)
+    {
+
+        $attributes = array();
+
+        foreach ($arguments as $attribute) {
+
+            $attributes = $this->extract($attributes, $attribute);
+
+        }
+
+        return $attributes;
+    }
 /**/
     /**
+     * @param $arguments
      * @param integer $index
-     *
      * @return mixed
      */
-    private function getArgument($index)
+    private function getArgument($arguments, $index)
     {
 
         $intIndex = (integer) $index;
 
-        if (count($this->attributes) === 0) {
+        if (count($arguments) === 0) {
             return null;
-        } elseif ($intIndex < count($this->attributes)) {
+        } elseif ($intIndex < count($arguments)) {
 
-            $result = $this->attributes[ $intIndex ];
+            $result = $arguments[ $intIndex ];
             if (!$result instanceof Attribute) {
                 return $result;
             } else {
@@ -200,7 +196,7 @@ class Tag
             }
 
         } else {
-            return $this->getArgument(Numbers::FIRST);
+            return $this->getArgument($arguments, Numbers::FIRST);
         }
     }
 
@@ -232,9 +228,9 @@ class Tag
         return $this->doctype;
     }
 
-    private function getComment()
+    private function getComment($arguments, $name)
     {
-        $content = implode('', $this->getContent() );
+        $content = implode('', $this->getContent($arguments) );
         $condition = $closeCondition = '';
 
         if( StringUtils::startsWith($content, '[if') ) {
@@ -242,7 +238,7 @@ class Tag
             $space = '';
             $content = '';
             $first = true;
-            foreach ($this->getContent() as $contentRow ) {
+            foreach ($this->getContent($arguments) as $contentRow ) {
 
                 if( $first ) {
                     $condition = $contentRow . '> ';
@@ -250,7 +246,7 @@ class Tag
                 } else if ( $contentRow !== '[endif]' ) {
                     $content .= $contentRow;
                 }  else {
-                    $closeCondition = "<!" . $contentRow;
+                    $closeCondition = '<!' . $contentRow;
                 }
             }
 
@@ -259,7 +255,7 @@ class Tag
         }
 
         return
-            '<' . $this->name .
+            '<' . $name .
             $space .
             $condition .
             $content .
@@ -292,11 +288,11 @@ class Tag
 
         if ( is_string($magicArgument) ) {
 
-            array_push($content, $magicArgument);
+            $content[] = $magicArgument;
 
         } else if ( $magicArgument instanceof Renderable || $this->canBeRender( $magicArgument ) ) {
 
-            array_push( $content, $magicArgument->render() );
+            $content[] = $magicArgument->render();
 
         } else if( is_array( $magicArgument ) && ! $this->isAssoc( $magicArgument ) ) {
 
@@ -324,6 +320,18 @@ class Tag
     private function isComment($name)
     {
         return $name === '!--';
+    }
+
+    /**
+     * @return Tag
+     */
+    public static function getInstance()
+    {
+        if(self::$instance === null){
+            self::$instance = new Tag();
+        }
+
+        return self::$instance;
     }
 
 }

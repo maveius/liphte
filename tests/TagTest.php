@@ -3,6 +3,7 @@
 
 namespace liphte\tests;
 
+use liphte\Liphte;
 use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
 use Panel;
@@ -12,10 +13,10 @@ class TagTest
     extends PHPUnit_Framework_TestCase
 {
 
-    function testBasicDomTags()
+    public function testBasicDomTags()
     {
 
-        $t = new Tag();
+        $t = Liphte::tag();
         $actual = $t->html(
             [
                 $t->head(),
@@ -38,10 +39,10 @@ class TagTest
         $this->assertEquals( $expected, $actual );
     }
 
-    function testBasicDomAttributesTags()
+    public function testBasicDomAttributesTags()
     {
 
-        $t = new Tag();
+        $t = Liphte::tag();
         $actual = $t->html(
             [
                 $t->head( '' ),
@@ -64,9 +65,9 @@ class TagTest
         $this->assertEquals( $expected, $actual );
     }
 
-    function testMixedTags()
+    public function testMixedTags()
     {
-        $t = new Tag();
+        $t = Liphte::tag();
         $actual = $t->html(
             [
                 $t->head(),
@@ -90,9 +91,9 @@ class TagTest
     }
 
 
-    function testRenderableTags()
+    public function testRenderableTags()
     {
-        $t = new Tag();
+        $t = Liphte::tag();
         $actual = $t->html(
             [
                 $t->head(),
@@ -114,9 +115,9 @@ class TagTest
         $this->assertEquals( $expected, $actual );
     }
 
-    function testRenderableOuterTags()
+    public function testRenderableOuterTags()
     {
-        $t = new Tag();
+        $t = Tag::getInstance();
         $actual = $t->html(
             [
                 $t->head(),
