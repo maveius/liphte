@@ -1,7 +1,7 @@
 <?php
 namespace liphte;
+require_once __DIR__.'/vendor/autoload.php';
 use liphte\tests\Example;
-require_once 'vendor/autoload.php';
 
 //exec('composer update');
 new Example();

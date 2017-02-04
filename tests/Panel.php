@@ -37,7 +37,7 @@ class Panel implements Renderable
          *
          */
 
-        $t = new Tag();
+        $t = Tag::getInstance();
         return $t->div( a::c1ass("panel", "panel-default"),
             [
                 $t->div( a::c1ass("panel-heading"),

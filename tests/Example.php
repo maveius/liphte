@@ -1,8 +1,8 @@
 <?php
 namespace liphte\tests;
+use liphte\Liphte;
 use liphte\tags\components\Renderable;
 use liphte\tags\html\Attribute as a;
-use liphte\tags\html\Attribute;
 use liphte\tags\html\Tag;
 use Panel;
 use Windwalker\Dom\DomElements;
@@ -12,7 +12,7 @@ class Example {
     public function __construct()
     {
 
-        $t = new Tag();
+        $t = Liphte::tag();
 
 //        echo "\n" . $t->table( a::style('border: 1px solid #070;'),
 //            [
@@ -38,7 +38,7 @@ class Example {
     public function template()
     {
 
-        $t = new Tag();
+        $t = Tag::getInstance();
         echo "\n";
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */
@@ -60,7 +60,7 @@ class Example {
     public function index()
     {
 
-        $t = new Tag();
+        $t = Tag::getInstance();
         echo "\n";
         echo "\n";
 
@@ -130,7 +130,7 @@ class Example {
 
     private function comments()
     {
-        $t = new Tag();
+        $t = Tag::getInstance();
 
         echo "\n";
 
@@ -155,7 +155,7 @@ class Example {
 
     private function needing() {
 
-        $t = new Tag();
+        $t = Tag::getInstance();
 // CASE 1
         /** @noinspection PhpUndefinedClassInspection */
         /** @method div( assoc_array $htmlAttributes, string $content ) */
