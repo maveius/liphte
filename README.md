@@ -13,7 +13,7 @@ use liphte\tags\html\Tag;
 use liphte\tags\html\Attribute as a;
 
 /** In your code (for example controller) **/
-  $t = new Tag();
+  $t = Liphte::tag();
 
   $result = $t->table ([ 'style' => 'border: 1px solid #070;' ],
       [
