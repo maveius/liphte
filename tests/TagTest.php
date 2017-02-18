@@ -7,10 +7,11 @@ use liphte\Liphte;
 use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
 use Panel;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+
 
 class TagTest
-    extends PHPUnit_Framework_TestCase
+    extends TestCase
 {
 
     public function testBasicDomTags()
