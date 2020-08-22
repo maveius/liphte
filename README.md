@@ -43,11 +43,18 @@ use liphte\tags\html\Attribute as a;
 ```php
 {
     "require": {
+        "maveius/liphte": "1.0"
+    }
+}
+```
+or
+```php
+{
+    "require": {
         "maveius/liphte": "dev-master"
     }
 }
 ```
-
 
 1. Add required package to `composer.json`
 2. Run `composer update` in your project directory.
