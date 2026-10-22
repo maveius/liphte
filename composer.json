@@ -2,46 +2,32 @@
   "name": "maveius/liphte",
   "type": "library",
   "description": "Lightweight & minimalistic HTML Builder/Generator for PHP",
-  "keywords": ["html","builder", "wrapper", "library"],
+  "keywords": ["html", "builder", "wrapper", "library"],
   "homepage": "https://github.com/maveius/liphte",
-  "version": "1.0",
   "license": "MIT",
   "authors": [
-  {
-    "name": "maveius",
-    "email": "maveilthain@gmail.com",
-    "homepage": "http://maveius.pl",
-    "role": "Developer"
-  }],
-  "require": {
-    "php": ">=5.6.9",
-    "windwalker/dom": "~2.0",
-    "windwalker/html": "~2.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": ">=5.7"
-  },
-  "repositories": [
     {
-      "type": "package",
-      "package": {
-        "name": "maveius/liphte",
-        "version": "1.0",
-        "dist": {
-          "url": "https://github.com/maveius/liphte",
-          "type": "vcs"
-        },
-        "autoload": {
-          "classmap": [
-            "."
-          ],
-          "psr-0": { "": "." }
-        }
-      }
+      "name": "maveius",
+      "email": "maveilthain@gmail.com",
+      "homepage": "http://maveius.pl",
+      "role": "Developer"
     }
   ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^8.5",
+    "windwalker/dom": "^3.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.0"
+  },
   "autoload": {
-    "psr-4": {"liphte\\": "."},
-    "classmap": [ "." ]
+    "psr-4": { "liphte\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "liphte\\tests\\": "tests/" }
+  },
+  "config": {
+    "platform": { "php": "8.5.0" }
   }
 }

@@ -1,6 +1,8 @@
 <?php
 
 
+namespace liphte\tests;
+
 use liphte\tags\components\Renderable;
 use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
