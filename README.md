@@ -1,6 +1,14 @@
 ![ Liphte ](http://maveius.pl/img/portfolio/liphte-big.png)
 # Liphte
 
+[![Tests](https://github.com/maveius/liphte/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/maveius/liphte/actions/workflows/tests.yml)
+![PHP](https://img.shields.io/badge/PHP-8.5%2B-777bb4)
+![PHPUnit](https://img.shields.io/badge/PHPUnit-12-success)
+![Vulnerabilities](https://img.shields.io/badge/vulnerabilities-0%20(composer%20audit)-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+The HTML test report is published as a plain `test-report.html` artifact of each [Tests workflow run](https://github.com/maveius/liphte/actions/workflows/tests.yml). The pipeline also runs `composer audit` and fails on any known vulnerability.
+
 Lightweight & minimalistic HTML Builder/Generator (or maybe Template Engine) for PHP
 
 ## What is liphte ?
@@ -43,7 +51,7 @@ use liphte\tags\html\Attribute as a;
 ```php
 {
     "require": {
-        "maveius/liphte": "1.0"
+        "maveius/liphte": "^2.0"
     }
 }
 ```
@@ -62,11 +70,15 @@ or
 
 ## Requirements:
 
-- Tested on: Apache
-- PHP >= 5.6(.9)
-- MySQL 5+
+- PHP >= 8.5
+- `windwalker/dom` ^3.5 (last release line with the `HtmlElement` API; 4.x escapes nested HTML, so it is not a drop-in)
 
 ## Changelog
+
+- v2.0 :
+	- Requires PHP 8.5, PHPUnit 12; sources moved to `src/` (PSR-4), `Attributes` moved to `liphte\tags\html`
+	- Fixed `TypeError` in `Tag` on PHP 8 (`method_exists()` with an array)
+	- Dropped unused `windwalker/html`; added CI pipeline, `composer audit` and HTML test report
 
 - v1.0 : 10 June 2015:
 	- Refactoring code and direcotries structure

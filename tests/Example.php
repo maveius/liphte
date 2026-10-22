@@ -4,7 +4,7 @@ use liphte\Liphte;
 use liphte\tags\components\Renderable;
 use liphte\tags\html\Attribute as a;
 use liphte\tags\html\Tag;
-use Panel;
+
 use Windwalker\Dom\DomElements;
 
 class Example {

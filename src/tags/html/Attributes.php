@@ -6,10 +6,9 @@
  * Time: 12:09
  */
 
-namespace html;
+namespace liphte\tags\html;
 
 
-use liphte\tags\html\Attribute;
 
 class Attributes
 {

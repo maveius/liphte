@@ -1,7 +1,6 @@
 <?php
 namespace liphte\tags\html;
 
-use html\Attributes;
 use liphte\tags\components\Renderable;
 use liphte\utils\Numbers;
 use liphte\utils\StringUtils;
@@ -182,7 +181,7 @@ class Tag
     private function getArgument($arguments, $index)
     {
 
-        $intIndex = (integer) $index;
+        $intIndex = (int) $index;
 
         if (count($arguments) === 0) {
             return null;
@@ -308,7 +307,7 @@ class Tag
 
     private function canBeRender($object) {
 
-        return !is_string($object) && method_exists($object, 'render') ;
+        return is_object($object) && method_exists($object, 'render') ;
     }
 
     private function isAssoc($array)

@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  CI: "true"
+  PHP_VERSION: "8.5"
+
+jobs:
+  unit:
+    name: Unit (PHPUnit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: json
+          tools: composer
+      - run: composer install --no-interaction --prefer-dist
+      - name: Security audit
+        run: composer audit
+      - name: Run unit tests
+        run: vendor/bin/phpunit --log-junit test-results/junit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-results
+          path: test-results/junit.xml
+          if-no-files-found: warn
+          retention-days: 30
+
+  report:
+    name: HTML test report
+    needs: [unit]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: "*-results"
+          path: test-results
+          merge-multiple: true
+      - name: Generate HTML report
+        run: php scripts/generate-test-report.php test-results/junit.xml tests/reports/test-report.html
+      - uses: actions/upload-artifact@v7
+        with:
+          path: tests/reports/test-report.html
+          archive: false
+          if-no-files-found: error
+          retention-days: 90

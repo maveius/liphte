@@ -49,3 +49,6 @@ crashlytics-build.properties
 
 composer.lock
 vendor/
+/test-results/
+/tests/reports/
+.phpunit.result.cache
